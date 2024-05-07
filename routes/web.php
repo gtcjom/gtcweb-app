@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\PusherController;
+use App\Models\Service;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +49,24 @@ Route::get('/about', function () {
 // Route::get('/services', function () {
 //     return view('services');
 // })->name('services');
-Route::get('/services', [ServicesController::class, 'services'])->name('services');
 
+Route::middleware("auth")->group(function () {
+    Route::get('/services', [ServiceController::class, 'services'])->name("services");
+    Route::get('services/{service}', [ServiceController::class, 'show'])->name("services.show");
+    Route::post('subscription', [ServiceController::class, 'subscription'])->name("subscription.create");
+});
+// Route::get(uri:'/', action:'App\Http\Controllers\StripeController@index');
+// Route::post(uri:'/checkout', action:'App\Http\Controllers\StripeController@checkout');
+// Route::get(uri:'/success', action:'App\Http\Controllers\StripeController@success');
 // Route::get('/login', [ProfileController::class, 'showLoginForm'])->name('login');
 
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
+
+Route::get('/', [PusherController::class, 'index']);
+Route::post('/broadcast', [PusherController::class, 'broadcast']);
+Route::post('/receive', [PusherController::class, 'receive']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -65,4 +78,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

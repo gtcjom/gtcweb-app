@@ -11,7 +11,14 @@ class Service extends Model
 
     protected $fillable = [
         'name',
+        'slug',
+        'stripe_plan',
         'description',
         'price'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

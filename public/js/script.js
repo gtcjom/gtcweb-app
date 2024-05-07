@@ -88,22 +88,22 @@ function renderProducts(sortBy, filterBy) {
 }
 
 
-function updateTime() {
-    const now = new Date();
-    let hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, '0');
-    const seconds = now.getSeconds().toString().padStart(2, '0');
-    const meridiem = hours >= 12 ? 'PM' : 'AM';
-    hours = (hours % 12) || 12;
+// function updateTime() {
+//     const now = new Date();
+//     let hours = now.getHours();
+//     const minutes = now.getMinutes().toString().padStart(2, '0');
+//     const seconds = now.getSeconds().toString().padStart(2, '0');
+//     const meridiem = hours >= 12 ? 'PM' : 'AM';
+//     hours = (hours % 12) || 12;
 
-    const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+//     const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
 
-    document.getElementById('time').textContent = timeString;
-  }
+//     document.getElementById('time').textContent = timeString;
+//   }
 
-  setInterval(updateTime, 1000);
+//   setInterval(updateTime, 1000);
 
-  updateTime();
+//   updateTime();
 
 function formatPrice(input) {
 
@@ -137,23 +137,23 @@ function showSlides() {
   setTimeout(showSlides, 2000); // Change image every 2 seconds
 }
 
-$(document).ready(function() {
-    var countDownDate = new Date("May 4, 2024 18:00:00").getTime();
-    var x = setInterval(function() {
-        var now = new Date().getTime();
-        var distance = countDownDate - now;
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        var countdownText = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
-        $("#demo").text(countdownText);
-        if (distance < 0) {
-            clearInterval(x);
-            $("#demo").text("EXPIRED");
-        }
-    }, 1000);
-});
+// $(document).ready(function() {
+//     var countDownDate = new Date("May 4, 2024 18:00:00").getTime();
+//     var x = setInterval(function() {
+//         var now = new Date().getTime();
+//         var distance = countDownDate - now;
+//         var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+//         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+//         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+//         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+//         var countdownText = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+//         $("#demo").text(countdownText);
+//         if (distance < 0) {
+//             clearInterval(x);
+//             $("#demo").text("EXPIRED");
+//         }
+//     }, 1000);
+// });
 
 $(document).ready(function() {
     const slideContainer = $('.p-img');
@@ -261,6 +261,11 @@ function showContent(contentId) {
     $('#sidebar-nav ul li:has(a[href="#"][onclick*="' + contentId + '"])').addClass('active');
 }
 
+function toggleSidebar() {
+    $("#sidebar").toggleClass("collapsed");
+    $("#main-content").toggleClass("expanded");
+}
+
 $(document).ready(function() {
     var widgets = $('.widget'); // Get all widget elements
     var currentIndex = 0;
@@ -298,13 +303,124 @@ function closeMessage() {
     document.getElementById("messagePopup").style.display = "none";
 }
 
-// Your jQuery code
 $(document).ready(function() {
-    // jQuery code goes here
+
 });
 
 $(document).ready(function() {
     $(".nav-mail").click(function() {
-        openMessage(); // Call your existing function
+        openMessage();
     });
 });
+
+const numberOfSpaces = 10;
+
+let result = '';
+
+for (let i = 0; i < numberOfSpaces; i++) {
+    result += '&nbsp;';
+}
+
+console.log(result);
+
+
+const pusherKey = document.getElementById('pusherConfig').getAttribute('data-key');
+const pusher = new Pusher(pusherKey, {cluster: 'eu'});
+const channel = pusher.subscribe('public');
+
+channel.bind('chat', function (data) {
+    $.post("/receive", {
+        _token: '{{csrf_token()}}',
+        message: data.message,
+    })
+    .done(function (res) {
+        $(".message > .message").last().after(res);
+        $(document).scrollTop($(document).height());
+    });
+});
+
+$("form").submit(function (event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: "/broadcast",
+        method: 'POST',
+        headers: {
+            'X-Socket-Id': pusher.connection.socket_id
+        },
+        data: {
+            _token: '{{csrf_token()}}',
+            message: $("form #message").val(),
+        }
+    }).done(function (res) {
+        $(".message > .message").last().after(res);
+        $("form #message").val('');
+        $(document).scrollTop($(document).height());
+    });
+});
+
+// $(document).ready(function() {
+//     $("#toggleChat").click(function() {
+//         console.log("Toggle button clicked");
+//         $("#chatContainer").siblings().toggle()
+//     });
+// });
+
+// document.getElementById("toggleChat").addEventListener("click", function() {
+//     console.log("Toggle button clicked"); // Check if this message appears in the console
+//     var chatContainer = document.getElementById("chatContainer");
+//     if (chatContainer.style.display === "none") {
+//         chatContainer.style.display = "block";
+//     } else {
+//         chatContainer.style.display = "none";
+//     }
+// });
+
+function openForm() {
+    $("#chatContainer").css("display", "block");
+    $("#chatContainer").fadeIn(500);
+}
+
+function closeForm() {
+    $("#chatContainer").css("display", "none");
+    $("#chatContainer").fadeOut(500);
+}
+
+function openForm() {
+    // $("#myForm").css("display", "block");
+    var chatPopup = $(".chat-popup");
+    chatPopup.css("display", "block");
+    setTimeout(function() {
+        chatPopup.css("bottom", "23px");
+    }, 10);
+}
+
+  function closeForm() {
+    // $("#myForm").css("display", "none");
+    var chatPopup = $(".chat-popup");
+    chatPopup.css("bottom", "-100%");
+    setTimeout(function() {
+        chatPopup.css("display", "none");
+    }, 300);
+}
+
+function sendMessage(event) {
+    event.preventDefault();
+
+    var messageInput = $("#message-input");
+    var message = messageInput.val().trim();
+
+    if (message !== "") {
+        var chatMessages = $("#chat-messages");
+        var newMessage = $("<div>").text(message);
+        chatMessages.append(newMessage);
+        messageInput.val("");
+    }
+}
+
+function scrollToBottom() {
+    var chatMessages = $(".chat-messages");
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+scrollToBottom();

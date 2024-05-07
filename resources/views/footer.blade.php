@@ -1,54 +1,53 @@
 <footer class="footer-container">
     <div class="footer-row">
         <div class="footer-about">
-            <h4>About Us</h4>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nis ut aliquip ex ea commodo consequat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nis ut aliquip ex ea commodo consequat.
-          </div>
+            <h4>PLATFORM</h4>
+            <a href="">For Providers</a><br>
+            <a href="">For Clinics</a><br>
+            <a href="">For Patient</a><br>
+            <a href="">Pricing</a><br>
+        </div>
     </div>
     <div class="footer-row">
         <div class="footer-products">
-            <h4>Latest Products</h4>
+            <h4>COMPANY</h4>
             <img src="" alt="img1" srcset="">
-            Lorem
+            <a href="">About Us</a>
             <img src="" alt="img2" srcset="">
-            Lorem
+            <a href="">Careers</a>
             <img src="" alt="img3" srcset="">
-            Lorem
-          </div>
+            <a href="">Research</a>
+            <img src="" alt="img1" srcset="">
+            <a href="">Newsroom</a>
+            <img src="" alt="img2" srcset="">
+            <a href="">Contact</a>
+            <img src="" alt="img3" srcset="">
+            <a href="">Privacy & Security</a>
+        </div>
     </div>
     <div class="footer-row">
         <div class="footer-category">
-            <h4>Top Category</h4>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nis ut aliquip ex ea commodo consequat.
-
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </div>
+            <h4>RESOURCES</h4>
+            <a href="">Telehealth Success</a><br>
+            <a href="">Blog</a><br>
+            <a href="">Podcast</a><br>
+        </div>
     </div>
     <div class="footer-row">
         <div class="footer-news">
-            <h4>News Letter</h4>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt<br><br />
+            <h4>SUPPORT</h4>
+            <a href="">Help Center</a><br />
+            <a href="">Terms of Service</a>
+            <a href="">Privacy Policy</a>
+            <a href="">Status</a>
             <div class="recipient">
-              <input type="email" id="email" name="email" class="input-email" placeholder="Enter your Email">
-              <button type="button" id="btn"><i class="fa fa-send"></i></button>
+                <input type="email" id="email" name="email" class="input-email" placeholder="Enter your Email">
+                <button type="button" id="btn"><i class="fa fa-send"></i></button>
             </div>
-          </div>
+        </div>
     </div>
-  </footer>
+</footer>
 
-  <div class="copy">
+<div class="copy">
     &copy; 2024 GTC. All rights reserved.
-  </div>
+</div>

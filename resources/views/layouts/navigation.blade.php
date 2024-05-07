@@ -145,6 +145,13 @@
             <li><a href="#" onclick="showContent('reservations')"><i class="fa fa-calendar-o"></i> Reservations</a></li>
             <li><a href="#" onclick="showContent('calendar')"><i class="fa fa-calendar"></i> Calendar</a></li>
         </ul>
+        <footer class="footer">
+            <h1>GTC<small>©</small></h1>
+            <div>
+                GTC ©<br />
+                All Rights Reserved 2024
+            </div>
+        </footer>
     </div>
 </section>
 <section id="content">
